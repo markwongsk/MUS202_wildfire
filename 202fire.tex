@@ -1,0 +1,125 @@
+\documentclass[12pt]{article}
+\usepackage{fancyhdr}
+\usepackage{ushort}
+\usepackage{pdfpages}
+\usepackage{amsmath, amssymb, amscd}
+\usepackage[margin=2.7cm]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{hyperref}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+\begin{document}
+\thispagestyle{fancy}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\input{fire_title}
+\setlength{\parindent}{0pt}
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This document describes the methodology used to process the fire data and how the processed data, as well as other compositional elements, were used to produce the composition ``Fire''.
+\section{Data}
+The provided data can be found \href{https://drive.google.com/drive/folders/1sgDxNkrS1AG77fC-4ga5EZ2CEBacdBM3}{here}.
+\subsection{Schema}
+The schema of the data consists of eight columns: UTC Time, Time, Radiant heat (kW m$^{-2}$), Convective Heat (kW m$^{-2}$), Total Heat (kW m$^{-2}$), Temperature ($^{\circ}$C), Vertical Wind (m s$^{-1}$), Horizontal Wind (m s${^{-1}}$). I will only be using the Total Heat data, which is shown in Figure \ref{total_heat}.
+
+\begin{figure}[h!]
+\centerline{\includegraphics[width=15cm]{total_heat.png}}
+\caption{Raw Total Heat Data}
+\label{total_heat}
+\end{figure}
+
+\subsection{Processing}
+The data is in chronological order and each row represents a data point after $0.1$s has elapsed from the previous row. There are a total of $4200$ rows representing $7$ minutes of data. I wrote a Python script that averages the total heat based on a given ($\Delta t$) number of data points. 
+\subsection{Mapping}
+The range of the average total heat is then divided into a given number of regions ($n$). These regions are then mapped to a given sequence of numbers ($p$), with a given number of lower regions dropped ($b$).
+\subsection{Chosen Values}
+Using $\Delta t = 50$, $n = 9$, $p = 1, 2, 3, 4, 5, 6, 7, 8$ and $b = 1$, the resulting mapped data is shown in Figure \ref{mapped_data}.
+
+\begin{figure}[h!]
+\centerline{\includegraphics[width=18cm]{average_heat.png}}
+\caption{Average Total Heat and Mapped Values}
+\label{mapped_data}
+\end{figure}
+
+\section{Interpretation}
+When the leading trailing zeroes are stripped, the resulting string of values is \\
+$100000156668754457422111$. I further discard the $100000$ prefix. 
+\subsection{Rules}
+The resulting string is used to construct a melodic line using the following rules:
+\begin{enumerate}
+\item Numbers indicate intervallic values. For example, $5$ is a $5$th, $6$ is a $6$th so on.
+\item Intervals can be Major, Minor, Perfect, Augmented or Diminished.
+\item Non-repeated numbers translate into note values at most a half-note.
+\item Repeated numbers translate into note values longer than a half-note. Alternatively, they can be treated as multiple non-repeated numbers.
+\end{enumerate}
+\subsection{Examples}
+Figure \ref{melodic_line} shows an example of the melodic material derived, first played by the second violin at m. $22$. It is used as the second theme in the composition, which then undergoes various treatments.
+
+\begin{figure}[h!]
+\centerline{\includegraphics[width=15cm]{melodic_line.png}}
+\caption{Second theme of Fire, Violin 2, mm. 22 - 28}
+\label{melodic_line}
+\end{figure}
+
+\begin{figure}[h!]
+\centerline{\includegraphics[width=8cm]{fragmentation.png}}
+\caption{Second theme with fragmentation and diminution, Violin 1, mm. 102 - 104}
+\label{melodic_line}
+\end{figure}
+
+\subsection{Violations}
+The rules are not always enforced after the first time the theme appears. Rule $1$ is sometimes relaxed to allow for the same intervals in different octaves (eg. a $2$nd is equivalent to a $9$th), and Rule $3$ and $4$ both admit violations for harmonic purposes. Figure \ref{second_theme} shows a brief excerpt with violations highlighted. Red boxes indicate violation of Rule $1$, blue boxes violations of Rule $3$ and green boxes violations of Rule $4$.
+
+\begin{figure}[h!]
+\centerline{\includegraphics[width=18cm]{violations.png}}
+\caption{Second thematic material in all string parts, mm. 28 - 41}
+\label{second_theme}
+\end{figure}
+
+\pagebreak
+\section{Meta}
+Besides composing with the rules in mind, I also made reference to fire in other ways.
+\subsection{Visual}
+Growing up in Malaysia, I experienced haze as a result of Indonesia's forest wildfires yearly. I have made the noteheads spell the word Fire in my native tongues - English, Malay and Chinese at various points in the piece. Examples can be found in Figure \ref{fire_english}, Figure \ref{fire_malay} and Figure \ref{fire_chinese}. Of note, the opening intro is replayed in the coda, but with the Violin 1 quoting the second theme in full while still retaining the word visuals.
+
+\begin{figure}[h!]
+\centerline{\includegraphics[width=5cm]{fire_english.png}}
+\caption{Fire in English, mm. 1 - 4}
+\label{fire_english}
+\end{figure}
+
+\begin{figure}[h!]
+\centerline{\includegraphics[width=2cm]{fire_malay.png}}
+\caption{Fire in Malay, mm. 116 - 118}
+\label{fire_malay}
+\end{figure}
+
+\begin{figure}[h!]
+\centerline{\includegraphics[width=2cm]{fire_chinese.png}}
+\caption{Fire in Chinese,  m. 86}
+\label{fire_chinese}
+\end{figure}
+
+\subsection{Aural}
+The first theme starts with the upper strings in pizz. The texture builds up by making them play staccato, then bowed, then consecutive down bows, intending to emulate a fire starting from a spark that eventually goes out of control. The idea of fire ``building up'' also gets used twice in mm. 102 - 111 right before the coda.
+
+\subsection{Structural}
+The development of the piece transitions through the keys F (minor), B (minor), D (major) and E (minor), whose letters constitute the ciphertext of the word FIRE using \href{https://en.wikipedia.org/wiki/Musical_cryptogram#French}{French musical cryptogram}.
+
+\subsection{Inspiration}
+I am at most a mediocre composer, but ``imitation is the sincerest form of flattery that mediocrity can pay to greatness''.
+\begin{enumerate}
+\item The chord progression of the opening four bars and the multiple stops of the first violin is inspired by Bach's Chaconne.
+\item The key of G minor and the cello ostinato is inspired by Vivaldi's Summer.
+\item The first theme is inspired by Rachmaninoff's Cello Sonata's second movement's first theme.
+\item The motif played by the first violin at m. 34 is inspired by Bach's first Cello Suite.
+\item The stretto passage in m. 102 is inspired by Chopin's Fourth Ballade.
+\end{enumerate}
+
+\end{document}
